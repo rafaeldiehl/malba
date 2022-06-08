@@ -9,13 +9,16 @@
         :required="required"
         :value="modelValue"
         @input="updateValue"
+        :class="{ error: error }"
       />
       <div class="password-handler" v-if="type == 'password'" @click="handleInputType">
         <img :src="icons.eye.src" :alt="icons.eye.alt" v-if="inputType == 'password'" />
         <img :src="icons.eyeOff.src" :alt="icons.eyeOff.alt" v-if="inputType == 'text'" />
       </div>
+      <div class="error-message" v-if="error">
+        Por favor, preencha o campo adequadamente
+      </div>
     </div>
-    
   </div>
 </template>
 
@@ -66,6 +69,10 @@ export default {
     required: {
       type: Boolean,
       default: false
+    },
+    error: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -93,7 +100,7 @@ export default {
   }
 
   input {
-    @apply w-full text-base bg-zinc-200 p-4 rounded-lg placeholder-zinc-500 focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-sky-500;
+    @apply w-full text-base bg-zinc-200 p-4 rounded-lg placeholder-zinc-500;
   }
 
   .input-container {
@@ -102,6 +109,20 @@ export default {
     img {
       @apply absolute top-[50%] translate-y-[-50%] right-4;
     }
+  }
+
+  // Input focus
+  input {
+    @apply focus:outline-none focus:outline-2 focus:outline-offset-0 focus:outline-sky-500;
+  }
+  
+  // Input inválido
+  input.error {
+    @apply border-2 border-red-500;
+  }
+
+  .error-message {
+    @apply w-full text-red-500 text-center text-sm mt-2;
   }
 }
 
