@@ -9,15 +9,16 @@
         :required="required"
         :value="modelValue"
         @input="updateValue"
-        :class="{ error: error }"
+        :class="{ error: empty }"
+        @change="verifyIfIsEmpty"
       />
       <div class="password-handler" v-if="type == 'password'" @click="handleInputType">
         <img :src="icons.eye.src" :alt="icons.eye.alt" v-if="inputType == 'password'" />
         <img :src="icons.eyeOff.src" :alt="icons.eyeOff.alt" v-if="inputType == 'text'" />
       </div>
-      <div class="error-message" v-if="error">
-        Por favor, preencha o campo adequadamente
-      </div>
+    </div>
+    <div class="error-message" v-if="empty">
+      Por favor, preencha o campo adequadamente
     </div>
   </div>
 </template>
@@ -40,13 +41,14 @@ export default {
           alt: 'Ocultar senha'
         }
       },
-      inputType: this.type
+      inputType: this.type,
+      empty: false
     }
   },
   props: {
     type: {
       validator(value) {
-        return ['text', 'password'].includes(value)
+        return ['text', 'password', 'email'].includes(value)
       },
       required: true
     },
@@ -69,10 +71,6 @@ export default {
     required: {
       type: Boolean,
       default: false
-    },
-    error: {
-      type: Boolean,
-      default: false
     }
   },
   computed: {
@@ -86,6 +84,9 @@ export default {
     },
     handleInputType() {
       this.inputType == 'password' ? this.inputType = 'text' : this.inputType = 'password';
+    },
+    verifyIfIsEmpty() {
+      this.modelValue == '' ? this.empty = true : this.empty = false;
     }
   }
 }
@@ -93,14 +94,14 @@ export default {
 
 <style lang="scss" scoped>
 .form-input {
-  @apply flex flex-col my-4;
+  @apply flex flex-col my-2;
 
   label {
-    @apply text-xs mb-2;
+    @apply text-black text-xs mb-2 text-left;
   }
 
   input {
-    @apply w-full text-base bg-zinc-200 p-4 rounded-lg placeholder-zinc-500;
+    @apply text-black w-full text-base bg-zinc-200 p-4 rounded-lg placeholder-zinc-500;
   }
 
   .input-container {
