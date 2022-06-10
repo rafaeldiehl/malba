@@ -92,12 +92,13 @@ export default {
       },
       disabled: true,
       passwordError: false,
-      modal: true
+      modal: false
     }
   },
   methods: {
     sendCredentials() {
       console.log(this.credentials);
+      this.modal = true;
     },
     checkInputs() {
       let error = false;
@@ -184,10 +185,14 @@ header {
     }
 
     .close-button {
-      @apply absolute top-4 right-4 transition;
+      @apply absolute top-3 right-3 transition;
 
-      &:hover {
-        @apply text-black;
+      span {
+        @apply p-1 rounded;
+
+        &:hover {
+          @apply text-black bg-zinc-200;
+        }
       }
     }
   }

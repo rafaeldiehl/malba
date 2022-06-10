@@ -6,11 +6,11 @@
     </header>
     <form @change="checkInputs" @submit.prevent="sendCredentials">
       <form-input
-        type="text"
-        label="nome"
-        name="name"
-        placeholder="Informe seu nome"
-        v-model="credentials.name"
+        type="email"
+        label="e-mail"
+        name="email"
+        placeholder="Informe seu e-mail"
+        v-model="credentials.email"
         required
       />
       <form-input
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       credentials: {
-        name: "",
+        email: "",
         password: ""
       },
       disabled: true
