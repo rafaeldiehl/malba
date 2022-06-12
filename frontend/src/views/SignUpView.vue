@@ -56,11 +56,11 @@
     </button>
     <div class="modal" v-if="modal">
       <div class="container">
-        <span class="material-symbols-outlined mail">
-          mark_email_read
-        </span>
+        <div class="mail">
+          <img :src="icons.markEmailRead.src" :alt="icons.markEmailRead.alt" />
+        </div>
         <h2>Link de verificação enviado</h2>
-        <p>Um e-mail com o link para verificação da sua conta foi enviado para seu e-mail. Caso não o encontre, verifique a caixa de spam.</p>
+        <p>Um link para verificação da conta foi enviado para seu e-mail. Caso não o encontre, verifique a caixa de spam.</p>
         <button class="close-button" @click="closeModal">
           <span class="material-symbols-outlined">
             close
@@ -76,6 +76,8 @@
 import FormInput from '@/components/FormInput.vue';
 import FormButton from '@/components/FormButton.vue';
 
+import markEmailReadIcon from '@/assets/icons/mark-email-read.svg';
+
 export default {
   name: 'SignUpView',
   components: {
@@ -84,6 +86,12 @@ export default {
   },
   data() {
     return {
+      icons: {
+        markEmailRead: {
+          src: markEmailReadIcon,
+          alt: 'E-mail confirmado'
+        }
+      },
       credentials: {
         name: "",
         email: "",
@@ -92,7 +100,7 @@ export default {
       },
       disabled: true,
       passwordError: false,
-      modal: false
+      modal: true
     }
   },
   methods: {
@@ -132,17 +140,28 @@ export default {
 
 <style scoped lang="scss">
 #sign-in {
-  @apply flex flex-col items-center justify-center text-center h-screen;
+  @apply flex flex-col items-center justify-center text-center min-h-screen p-14;
 }
 
 form {
   @apply my-2 flex flex-col w-[500px];
   
+  @media (max-width: 550px) {
+    @apply w-[90vw];
+  }
 }
 
 header {
   h1 {
     @apply text-black text-[40px] font-medium;
+
+    @media (max-width: 363px) {
+      @apply text-[30px];
+    }
+
+    @media (max-width: 300px) {
+      @apply text-[25px];
+    }
   }
 }
 
@@ -171,13 +190,13 @@ header {
 }
 
 .modal {
-  @apply h-screen w-screen absolute bg-black bg-opacity-40 flex justify-center items-center;
+  @apply h-screen w-screen fixed bg-black bg-opacity-40 flex justify-center items-center top-0 left-0;
 
   .container {
-    @apply bg-white relative w-[600px] p-12 rounded-xl flex flex-col justify-center items-center;
+    @apply bg-white relative w-[600px] p-16 m-8 rounded-xl flex flex-col justify-center items-center;
 
     .mail {
-      @apply h-[50px] w-[50px] p-3 bg-zinc-100 text-green-500 rounded-xl text-4xl flex items-center justify-center mb-4;
+      @apply h-[75px] w-[75px] bg-zinc-100 rounded-xl flex items-center justify-center mb-4;
     }
 
     h2 {
@@ -194,6 +213,10 @@ header {
           @apply text-black bg-zinc-200;
         }
       }
+    }
+
+    @media (max-width: 450px) {
+      @apply p-8;
     }
   }
 }

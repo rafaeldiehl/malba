@@ -84,12 +84,11 @@ export default {
 
 <style scoped lang="scss">
 #sign-in {
-  @apply flex flex-col items-center justify-center text-center h-screen;
+  @apply flex flex-col items-center justify-center text-center min-h-screen p-14;
 }
 
 form {
   @apply my-2 flex flex-col w-[500px];
-  
 }
 
 header {
@@ -115,6 +114,12 @@ header {
     &:hover {
       @apply text-sky-600;
     }
+  }
+}
+
+@media (max-width: 550px) {
+  form {
+    @apply w-[90vw];
   }
 }
 </style>
