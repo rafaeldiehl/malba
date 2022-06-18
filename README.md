@@ -8,7 +8,7 @@ Um website para ensino de Matemática básica
 
 </div>
 
-# Sumário
+# Tabela de Contéudos
 
 - [Introdução](#introducao)
 - [Documentação](#documentação)
@@ -18,8 +18,13 @@ Um website para ensino de Matemática básica
   - [Tecnologias](#tecnologias)
 - [Instalação](#instalacao)
   - [Pré-requisitos](#requisitos)
-  - [Frontend](#frontend)
-  - [Backend](#backend)
+  - [Frontend](#install-frontend)
+  - [Backend](#install-backend)
+    - [Configurações do Banco](#config-banco)
+    - [Rotas da API](#rotas)
+- [Status do Projeto](#status)
+- [Licença](#licenca)
+- [Autor](#autor)
 
 <h1 id="introducao">Introdução</h1>
 
@@ -51,7 +56,7 @@ Os principais modelos do [banco de dados](https://github.com/rafaeldiehl/malba/t
 
 <h2 id="prototipo">Design e Protótipo</h2>
 
-O design e protótipo interativo do sistema pode ser acesso pelo [Figma](https://www.figma.com/file/FMZNLPG7E6dZjupipOozBw/Malba?node-id=0%3A1).
+O design e protótipo interativo do sistema pode ser acessados pelo [Figma](https://www.figma.com/file/FMZNLPG7E6dZjupipOozBw/Malba?node-id=0%3A1).
 
 <h2 id="tecnologias">Tecnologias</h2>
 
@@ -118,7 +123,7 @@ $ git clone https://github.com/rafaeldiehl/malba.git
 $ cd malba/
 ```
 
-<h2 id="frontend">Frontend</h2>
+<h2 id="install-frontend">Frontend</h2>
 
 Para rodar o frontend, execute os seguintes comandos (certifique-se de estar no diretório raiz do projeto):
 
@@ -133,7 +138,7 @@ $ npm i
 $ npm run serve
 ```
 
-<h2 id="backend">Backend</h2>
+<h2 id="install-backend">Backend</h2>
 
 Para rodar o backend, edite o [arquivo com variáveis de ambiente](https://github.com/rafaeldiehl/malba/blob/main/backend/.env.example), configurando seu banco de dados adequadamente. Exemplo:
 
@@ -177,7 +182,7 @@ $ php artisan db:seed
 $ php artisan serve
 ```
 
-As seguintes rotas da API estão disponíveis, caso queira testar requisições HTTP:
+<p id="rotas">As seguintes rotas da API estão disponíveis, caso queira testar requisições HTTP:</p>
 
 - `/api/users` (retorna os usuários cadastrados)
 - `/api/topics` (retorna os tópicos cadastrados)
@@ -185,3 +190,27 @@ As seguintes rotas da API estão disponíveis, caso queira testar requisições 
 - `/api/questions` (retorna as questões cadastradas)
 - `/api/question-types` (retorna os possíveis tipos de questões)
 - `/api/alternatives` (retorna as alternativas das questões)
+
+<h1 id="licensa">Licença</h1>
+
+Este projeto está sob a [licença MIT](https://github.com/rafaeldiehl/malba/blob/main/LICENSE.md).
+
+<h1 id="status">Status do Projeto</h1>
+
+Em andamento.
+
+<h1 id="autor">Autor</h1>
+
+<div align="center">
+
+<a href="https://github.com/rafaeldiehl">
+ <img style="border-radius: 50%;" src="https://avatars.githubusercontent.com/u/57677302?v=4" width="100px;" alt=""/>
+ <br />
+ <sub><b>Rafael Diehl (SP - Brasil, 🇧🇷)</b></sub></a>
+
+Entre em contato! 👋🏽
+
+[![Linkedin Badge](https://img.shields.io/badge/-Linkedin-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/rafael-diehl-4b4a1423b/)](https://www.linkedin.com/in/rafael-diehl-4b4a1423b/)
+[![Gmail Badge](https://img.shields.io/badge/-rafaeljuliani1984@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:rafaeljuliani1984@gmail.com)](mailto:rafaeljuliani1984@gmail.com)
+
+</div>
