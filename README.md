@@ -40,19 +40,19 @@ Foi desenvolvido como Projeto Interdisciplinar do terceiro semestre do Curso Sup
 
 O projeto contém os seguintes [diagramas UML](https://github.com/rafaeldiehl/malba/tree/main/docs/uml) na sua documentação:
 
-- Diagrama de Casos de Uso;
+- [Diagrama de Casos de Uso](https://github.com/rafaeldiehl/malba/tree/main/docs/uml/casos_de_uso.png);
 - Diagrama de Classes;
 - Diagramas de Sequência, para cada caso de uso;
 - Diagrama de Componentes;
-- Diagrama de Implantação.
+- [Diagrama de Implantação](https://github.com/rafaeldiehl/malba/tree/main/docs/uml/implantacao.png).
 
 <h2 id="banco">Banco de Dados</h2>
 
 Os principais modelos do [banco de dados](https://github.com/rafaeldiehl/malba/tree/main/docs/banco) também estão disponíveis no repositório:
 
-- Modelo conceitual;
-- Modelo lógico;
-- Modelo físico.
+- [Modelo conceitual](https://github.com/rafaeldiehl/malba/tree/main/docs/banco/conceitual.png);
+- [Modelo lógico](https://github.com/rafaeldiehl/malba/tree/main/docs/banco/logico.png);
+- [Modelo físico](https://github.com/rafaeldiehl/malba/tree/main/docs/banco/fisico.png).
 
 <h2 id="prototipo">Design e Protótipo</h2>
 
@@ -140,7 +140,7 @@ $ npm run serve
 
 <h2 id="install-backend">Backend</h2>
 
-Para rodar o backend, edite o [arquivo com variáveis de ambiente](https://github.com/rafaeldiehl/malba/blob/main/backend/.env.example), configurando seu banco de dados adequadamente. Exemplo:
+<p id="config-banco">Para rodar o backend, edite o [arquivo com as variáveis de ambiente](https://github.com/rafaeldiehl/malba/blob/main/backend/.env.example), configurando seu banco de dados adequadamente. Exemplo:</p>
 
 ```bash
 # Acesse o diretório backend
