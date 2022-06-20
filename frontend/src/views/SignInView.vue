@@ -43,8 +43,8 @@
 
 <script>
 // @ is an alias to /src
-import FormInput from '@/components/FormInput.vue';
-import FormButton from '@/components/FormButton.vue';
+import FormInput from '@/components/Form/FormInput.vue';
+import FormButton from '@/components/Form/FormButton.vue';
 
 export default {
   name: 'SignInView',
@@ -89,6 +89,10 @@ export default {
 
 form {
   @apply my-2 flex flex-col w-[500px];
+
+  @media (max-width: 550px) {
+    @apply w-[90vw];
+  }
 }
 
 header {
@@ -114,12 +118,6 @@ header {
     &:hover {
       @apply text-sky-600;
     }
-  }
-}
-
-@media (max-width: 550px) {
-  form {
-    @apply w-[90vw];
   }
 }
 </style>

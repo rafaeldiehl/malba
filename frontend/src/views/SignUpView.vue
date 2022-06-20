@@ -73,8 +73,8 @@
 
 <script>
 // @ is an alias to /src
-import FormInput from '@/components/FormInput.vue';
-import FormButton from '@/components/FormButton.vue';
+import FormInput from '@/components/Form/FormInput.vue';
+import FormButton from '@/components/Form/FormButton.vue';
 
 import markEmailReadIcon from '@/assets/icons/mark-email-read.svg';
 
@@ -100,7 +100,7 @@ export default {
       },
       disabled: true,
       passwordError: false,
-      modal: true
+      modal: false
     }
   },
   methods: {
