@@ -41,9 +41,8 @@ Foi desenvolvido como Projeto Interdisciplinar do terceiro semestre do Curso Sup
 O projeto contém os seguintes [diagramas UML](https://github.com/rafaeldiehl/malba/tree/main/docs/uml) na sua documentação:
 
 - [Diagrama de Casos de Uso](https://github.com/rafaeldiehl/malba/tree/main/docs/uml/casos_de_uso.png);
-- Diagrama de Classes;
-- Diagramas de Sequência, para cada caso de uso;
-- Diagrama de Componentes;
+- [Diagrama de Classes](https://github.com/rafaeldiehl/malba/tree/main/docs/uml/classes.png);
+- [Diagrama de Componentes](https://github.com/rafaeldiehl/malba/tree/main/docs/uml/componentes.png);
 - [Diagrama de Implantação](https://github.com/rafaeldiehl/malba/tree/main/docs/uml/implantacao.png).
 
 <h2 id="banco">Banco de Dados</h2>
