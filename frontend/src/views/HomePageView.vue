@@ -124,7 +124,7 @@ main {
   }
 
   @media (max-width: 950px) {
-    @apply flex-col;
+    @apply flex-col justify-center gap-5;
 
     header {
       @apply text-center items-center min-h-[100%] my-10;

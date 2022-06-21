@@ -170,6 +170,6 @@ export default {
 }
 
 .active {
-  @apply text-sky-600;
+  @apply text-sky-600 select-none;
 }
 </style>
