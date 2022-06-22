@@ -20,10 +20,10 @@
         </div>
         <ul class="sign-links">
           <li>
-            <router-link to="sign-in">Entrar</router-link>
+            <router-link to="login">Entrar</router-link>
           </li>
           <li>
-            <router-link to="sign-up">Criar conta</router-link>
+            <router-link to="register">Criar conta</router-link>
           </li>
         </ul>
       </nav>

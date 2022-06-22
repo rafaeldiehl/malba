@@ -62,11 +62,43 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Administrador',
             'email' => 'admin@admin.com',
-            'password' => '123456',
+            'password' => bcrypt('123456'),
             'username' => 'admin',
             'isAdmin' => true,
             'isDarkTheme' => false,
             'avatar' => 1
+        ]);
+
+        // test users
+        DB::table('users')->insert([
+            [
+                'name' => 'Ednaldo Pereira',
+                'email' => 'ednaldo@ednaldo.com',
+                'password' => bcrypt('123456'),
+                'username' => 'ednaldopereira',
+                'isAdmin' => false,
+                'isDarkTheme' => false,
+                'hits' => 7,
+                'monthHits' => 7,
+                'maxRank' => 7,
+                'hp' => 2,
+                'xp' => 25,
+                'avatar' => 2
+            ],
+            [
+                'name' => 'Rafael Diehl',
+                'email' => 'rafaeljuliani1984@gmail.com',
+                'password' => bcrypt('123456'),
+                'username' => 'rafaeldiehl',
+                'isAdmin' => false,
+                'isDarkTheme' => true,
+                'hits' => 10,
+                'monthHits' => 5,
+                'maxRank' => 1,
+                'hp' => 3,
+                'xp' => 40,
+                'avatar' => 3
+            ]
         ]);
     }
 }

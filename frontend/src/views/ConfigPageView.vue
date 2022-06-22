@@ -11,7 +11,7 @@
           <div class="avatar-selector-container">
             <h4>Avatar</h4>
             <div class="avatar-selector">
-              <img class="avatar" :src="imageUrl" :alt="images.avatar.alt">
+              <img class="avatar" :src="avatar.src" :alt="avatar.alt">
               <span class="edit-ping"></span>
               <span class="edit-button" @click="showAvatars">
                 <img :src="icons.edit.src" :alt="icons.edit.alt">
@@ -21,7 +21,7 @@
           <div class="theme-selector-container">
             <h4>Selecione um tema de cor</h4>
             <div class="theme-selector">
-              <div class="theme" :class="{ 'active-theme': credentials.theme == false }" @click="activeLightTheme">
+              <div class="theme" :class="{ 'active-theme': theme == false }" @click="activeLightTheme">
                 <img :src="images.themes.light.src" :alt="images.themes.light.alt">
                 <span>
                   <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +45,7 @@
                   Tema claro
                 </span>
               </div>
-              <div class="theme" :class="{ 'active-theme': credentials.theme == true }" @click="activeDarkTheme">
+              <div class="theme" :class="{ 'active-theme': theme == true }" @click="activeDarkTheme">
                 <img :src="images.themes.dark.src" :alt="images.themes.dark.alt">
                 <span>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +63,7 @@
           label="nome"
           name="password"
           placeholder="Informe seu nome"
-          v-model="credentials.name"
+          v-model="name"
           required
         />
         <form-input
@@ -71,7 +71,7 @@
           label="nome de usuário"
           name="password-confirm"
           placeholder="Informe seu nome de usuário"
-          v-model="credentials.username"
+          v-model="username"
           required
         />
         <form-button>Salvar</form-button>
@@ -127,7 +127,7 @@ import NavBar from '@/components/Dashboard/NavBar.vue';
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 
-import example from "@/assets/avatars/avatar2.png";
+// import example from "@/assets/avatars/avatar2.png";
 import lightThemeImg from "@/assets/themes/light_theme.png";
 import darkThemeImg from "@/assets/themes/dark_theme.png";
 
@@ -137,7 +137,8 @@ import dangerIcon from '@/assets/icons/danger.svg';
 import lockIcon from '@/assets/icons/lock.svg';
 import trashIcon from '@/assets/icons/trash.svg';
 
-import axios from 'axios';
+import axiosClient from '@/services/axios';
+import store from "@/store";
 
 export default {
   name: 'ConfigPageView',
@@ -149,10 +150,6 @@ export default {
   data() {
     return {
       images: {
-        avatar: {
-          src: example,
-          alt: 'Avatar teste'
-        },
         themes: {
           light: {
             src: lightThemeImg,
@@ -163,12 +160,6 @@ export default {
             alt: 'Tema escuro'
           }
         }
-      },
-      credentials: {
-        avatarId: 2,
-        theme: false,
-        name: "Ednaldo Pereira",
-        username: "user123"
       },
       icons: {
         close: {
@@ -197,27 +188,36 @@ export default {
         moon: '#27272A'
       },
       avatarModal: false,
-      avatars: null
+      avatars: null,
+      avatar: {
+        id: store.state.user.data.avatar,
+        src: "",
+        alt: "" 
+      },
+      theme: store.state.user.data.isDarkTheme,
+      name: store.state.user.data.name,
+      username: store.state.user.data.username
     }
   },
-  computed: {
-    imageUrl: function() {
-      if(this.avatars) {
-        return this.avatars[this.credentials.avatarId - 1].imageUrl
-      }
-      return this.images.avatar.src;
-    }
-  }, 
   created() {
-    this.getAvatars();
+     axiosClient.get(`/avatars/${this.avatar.id}`)
+        .then((res) => res.data)
+        .then((res) => {
+          this.avatar.src = res.imageUrl;
+          this.avatar.alt = res.name;
+        });
+
+    if(this.theme) {
+      this.activeDarkTheme();
+    } else {
+      this.activeLightTheme();
+    }
   },
   methods: {
-    getAvatars() {
-      axios
-        .get("http://localhost:8000/api/avatars")
+    getAllAvatars() {
+      axiosClient.get("/avatars")
         .then((res) => {
           this.avatars = res.data;
-          console.log('GET /avatars ', res.data);
         })
         .catch((error) => {
           console.log(error);
@@ -228,24 +228,36 @@ export default {
     },
     showAvatars() {
       this.avatarModal = true;
-      this.getAvatars();
+      this.getAllAvatars();
     },
     changeAvatar(id) {
-      this.credentials.avatarId = id;
+      this.avatar.id = id;
+      axiosClient.get(`/avatars/${this.avatar.id}`)
+        .then((res) => res.data)
+        .then((res) => {
+          this.avatar.src = res.imageUrl;
+          this.avatar.alt = res.name;
+        });
       this.closeAvatarModal();
     },
     activeLightTheme() {
-      this.credentials.theme = false;
+      this.theme = false;
       this.iconColor.sun = '#0ea5e9';
       this.iconColor.moon = '#27272A';
     },
     activeDarkTheme() {
-      this.credentials.theme = true;
+      this.theme = true;
       this.iconColor.sun = '#27272A';
       this.iconColor.moon = '#0ea5e9';
     },
     sendData() {
-      console.log(this.credentials);
+      const newValues = {
+        name: this.name,
+        username: this.username,
+        theme: this.theme,
+        avatar: this.avatar.id
+      }
+      console.log(newValues);
     }
   }
 }

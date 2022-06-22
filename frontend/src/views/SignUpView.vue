@@ -44,7 +44,7 @@
     </form>
     <div class="shortcuts">
       <p class="shortcut-link">
-        Já tem uma conta? <router-link to="/sign-in">Faça login</router-link>
+        Já tem uma conta? <router-link to="/login">Faça login</router-link>
       </p>
     </div>
     <button class="return-button">
@@ -76,6 +76,8 @@
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 
+import store from '@/store';
+
 import markEmailReadIcon from '@/assets/icons/mark-email-read.svg';
 
 export default {
@@ -105,7 +107,17 @@ export default {
   },
   methods: {
     sendCredentials() {
-      console.log(this.credentials);
+      const user = {
+        name: this.credentials.name,
+        email: this.credentials.email,
+        password: this.credentials.password
+      }
+
+      console.log(user);
+
+      store
+        .dispatch('register', user)
+
       this.modal = true;
     },
     checkInputs() {
@@ -132,6 +144,8 @@ export default {
       error ? this.disabled = true : this.disabled = false;
     },
     closeModal() {
+      this.$router.push({name: "login"});
+
       this.modal = false;
     }
   }

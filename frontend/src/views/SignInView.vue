@@ -25,7 +25,7 @@
     </form>
     <div class="shortcuts">
       <p class="shortcut-link">
-        Não tem uma conta? <router-link to="/sign-up">Criar conta</router-link>
+        Não tem uma conta? <router-link to="/register">Criar conta</router-link>
       </p>
       <p class="shortcut-link mt-1">
         <router-link to="/reset-password">Esqueci minha senha</router-link>
@@ -46,6 +46,8 @@
 import FormInput from '@/components/Form/FormInput.vue';
 import FormButton from '@/components/Form/FormButton.vue';
 
+import store from '@/store';
+
 export default {
   name: 'SignInView',
   components: {
@@ -63,7 +65,16 @@ export default {
   },
   methods: {
     sendCredentials() {
-      console.log(this.credentials);
+      const user = {
+        email: this.credentials.email,
+        password: this.credentials.password,
+      }
+
+      store
+        .dispatch('login', user)
+        .then(() => {
+          this.$router.push({name: "dashboard"});
+        }) 
     },
      checkInputs() {
       // Verifica se os inputs estão preenchidos

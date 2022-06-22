@@ -12,11 +12,13 @@
       <div class="profile">
         <div class="picture">
           <img :src="avatar.src" :alt="avatar.alt">
-          <span class="level">1</span>
+          <img v-if="isAdmin" :src="icons.star.src" :alt="icons.star.alt" class="star">
+          <span v-else class="level">1</span>
         </div>
         <div class="profile-data" v-if="!mobileView">
-          <h3>user123</h3>
-          <router-link to="/dashboard/profile">Ver perfil</router-link>
+          <h3>{{ username }}</h3>
+          <button v-if="isAdmin" @click="logout">Encerrar sessão</button>
+          <router-link v-else to="/dashboard/profile">Ver perfil</router-link>
         </div>
       </div>
     </div>
@@ -24,16 +26,17 @@
 </template>
 
 <script>
-import example from "@/assets/avatars/avatar2.png";
+// import example from "@/assets/avatars/avatar2.png";
+
+import starIcon from "@/assets/icons/star.svg";
+
+import store from "@/store";
+import axiosClient from "@/services/axios";
 
 export default {
   name: 'NavBar',
   data() {
     return {
-      avatar: {
-        src: example,
-        alt: 'Avatar teste'
-      },
       links: [
         {
           key: "home",
@@ -70,7 +73,24 @@ export default {
                 </svg>`
         }
       ],
-      mobileView: false
+      icons: {
+        star: {
+          src: starIcon,
+          alt: 'Estrela'
+        }
+      },
+      mobileView: false,
+      avatar: {
+        id: store.state.user.data.avatar,
+        alt: '',
+        src: ''
+      },
+      isAdmin: store.state.user.data.isAdmin
+    }
+  },
+  computed: {
+    username() {
+      return store.state.user.data.username;
     }
   },
   props: {
@@ -83,6 +103,10 @@ export default {
   methods: {
     handleMobileView() {
       this.mobileView = window.innerWidth <= 680;
+    },
+    logout() {
+      store.commit("logout");
+      this.$router.go();
     }
   },
   created() {
@@ -90,6 +114,13 @@ export default {
     window.addEventListener("resize", () => {
       this.handleMobileView();
     });
+
+    axiosClient.get(`/avatars/${this.avatar.id}`)
+        .then((res) => res.data)
+        .then((res) => {
+          this.avatar.src = res.imageUrl;
+          this.avatar.alt = res.name;
+        });
   }
 }
 </script>
@@ -137,7 +168,7 @@ export default {
       @apply rounded-full h-[3.25rem];
     }
 
-    .level {
+    .star, .level {
       @apply absolute text-xs bottom-[-0.9em] font-bold text-white bg-sky-900 w-5 h-5 flex justify-center items-center rounded-full border-[3px] border-sky-500 left-1/2 translate-x-[-50%] z-20;
     }
 
@@ -158,7 +189,7 @@ export default {
       @apply text-zinc-900 font-medium text-xl;
     }
 
-    a {
+    button, a {
       @apply text-sky-600 underline underline-offset-2 text-sm transition;
 
       &:hover {

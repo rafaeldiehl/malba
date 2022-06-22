@@ -26,7 +26,7 @@ class TypeController extends Controller
 
     public function show($id)
     {
-        //
+        return Type::findOrFail($id);
     }
 
     public function edit($id)

@@ -25,7 +25,7 @@ class AvatarController extends Controller
 
     public function show($id)
     {
-        //
+        return Avatar::findOrFail($id);
     }
 
     public function edit($id)

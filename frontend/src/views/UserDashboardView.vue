@@ -17,20 +17,19 @@
           <div class="progress-bar">
             <span>0 XP</span>
             <div class="border">
-              <span class="paint w-[50%] bg-green-600"></span>
-              <span class="progress-value left-[50%] translate-x-[-20%]">25 XP</span>
+              <span class="paint bg-green-600" :class="'w-[' + barPercentage + '%]'"></span>
+              <span class="progress-value translate-x-[-20%]" :class="'left-[' + barPercentage + '%]'">{{ xp.current }} XP</span>
             </div>
-            <span>50 XP</span>
+            <span>{{ xp.total }} XP</span>
           </div>
-          <span class="tip">40 XP necessários para o próximo nível</span>
+          <span class="tip">{{ necessaryXp }} XP necessários para o próximo nível</span>
         </div>
 
         <div class="hp">
           <h2>Pontos de vida</h2>
           <div class="hearts-container">
-            <img :src="icons.heart.src" :alt="icons.heart.alt" />
-            <img :src="icons.heart.src" :alt="icons.heart.alt" />
-            <img :src="icons.brokenHeart.src" :alt="icons.brokenHeart.alt" />
+            <img :src="icons.heart.src" :alt="icons.heart.alt" v-for="n in fullHearts" :key="n" />
+            <img :src="icons.brokenHeart.src" :alt="icons.brokenHeart.alt" v-for="n in brokenHearts" :key="n" />
           </div>
           <span class="tip">
             <img :src="icons.lightbulb.src" :alt="icons.lightbulb.alt">
@@ -41,15 +40,15 @@
           <div class="hits-container">
             <div class="hit-container">
               <span class="title">Acertos totais</span>
-              <span class="value">7</span>
+              <span class="value">{{ hitsData.hits }}</span>
             </div>
             <div class="hit-container">
               <span class="title">Acertos mensais</span>
-              <span class="value">7</span>
+              <span class="value">{{ hitsData.monthHits }}</span>
             </div>
             <div class="hit-container">
               <span class="title">Ranking máximo</span>
-              <span class="value">#7</span>
+              <span class="value">#{{ hitsData.maxRank }}</span>
             </div>
           </div>
           <button>
@@ -72,6 +71,8 @@ import heartIcon from '@/assets/icons/heart.svg';
 import brokenHeartIcon from '@/assets/icons/broken-heart.svg';
 import lightbulbIcon from '@/assets/icons/lightbulb.svg';
 import sadIcon from '@/assets/icons/sad.svg';
+
+import store from "@/store";
 
 export default {
   name: 'UserDashboardView',
@@ -102,7 +103,31 @@ export default {
           alt: "Desculpe pelo erro"
         }
       },
-      topics: null
+      topics: null,
+      xp: {
+        current: store.state.user.data.xp,
+        total: 50,
+      },
+      hp: store.state.user.data.hp,
+      hitsData: {
+        hits: store.state.user.data.hits,
+        monthHits: store.state.user.data.monthHits,
+        maxRank: store.state.user.data.maxRank
+      }
+    }
+  },
+  computed: {
+    necessaryXp() {
+      return this.xp.total - this.xp.current
+    },
+    barPercentage() {
+      return (this.xp.current/this.xp.total)*100;
+    },
+    brokenHearts() {
+      return Math.abs(this.hp - 3);
+    },
+    fullHearts() {
+      return this.hp;
     }
   }
 }

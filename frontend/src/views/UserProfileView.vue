@@ -9,7 +9,7 @@
       <div class="user-profile">
         <div class="profile-data">
           <div class="avatar-container">
-            <img :src="images.avatar.src" :alt="images.avatar.alt">
+            <img :src="avatar.src" :alt="avatar.alt">
             <span class="level">1</span>
           </div>
           <div class="data-container">
@@ -26,21 +26,20 @@
                 </clipPath>
                 </defs>
                 </svg>
-                #7
+                #{{ hitsData.maxRank }}
               </span>
               <span class="hearts">
-                <img :src="icons.heart.src" :alt="icons.heart.alt" />
-                <img :src="icons.heart.src" :alt="icons.heart.alt" />
-                <img :src="icons.brokenHeart.src" :alt="icons.brokenHeart.alt" />
+                <img :src="icons.heart.src" :alt="icons.heart.alt" v-for="n in fullHearts" :key="n" />
+            <img :src="icons.brokenHeart.src" :alt="icons.brokenHeart.alt" v-for="n in brokenHearts" :key="n" />
               </span>
             </div>
             <div class="progress-bar">
               <span>0 XP</span>
               <div class="border">
-                <span class="paint w-[50%] bg-green-600"></span>
-                <span class="progress-value left-[50%] translate-x-[-20%]">25 XP</span>
+                <span class="paint bg-green-600" :class="'w-[' + barPercentage + '%]'"></span>
+                <span class="progress-value translate-x-[-20%]" :class="'left-[' + barPercentage + '%]'">{{ xp.current }} XP</span>
               </div>
-              <span>50 XP</span>
+              <span>{{ xp.total }} XP</span>
             </div>
           </div>
         </div>
@@ -50,7 +49,7 @@
           <img :src="icons.edit.src" :alt="icons.edit.alt">
           Alterar dados da conta
         </router-link>'
-        <button>
+        <button @click="logout">
           <img :src="icons.logout.src" :alt="icons.logout.alt">
           Encerrar sessão
         </button>
@@ -62,13 +61,16 @@
 <script>
 import NavBar from '@/components/Dashboard/NavBar.vue';
 
-import example from "@/assets/avatars/avatar2.png";
+//import example from "@/assets/avatars/avatar2.png";
 
 import editIcon from '@/assets/icons/edit.svg';
 import logoutIcon from '@/assets/icons/logout.svg';
 import trophyIcon from '@/assets/icons/trophy.svg';
 import heartIcon from '@/assets/icons/heart.svg';
 import brokenHeartIcon from '@/assets/icons/broken-heart.svg';
+
+import store from '@/store';
+import axiosClient from '@/services/axios';
 
 export default {
   name: 'UserProfileView',
@@ -77,12 +79,6 @@ export default {
   },
   data() {
     return {
-      images: {
-        avatar: {
-          src: example,
-          alt: 'Avatar teste'
-        }
-      },
       icons: {
         edit: {
           src: editIcon,
@@ -104,8 +100,51 @@ export default {
           src: brokenHeartIcon,
           alt: "Ponto de vida vazio"
         }
+      },
+      xp: {
+        current: store.state.user.data.xp,
+        total: 50,
+      },
+      hp: store.state.user.data.hp,
+      hitsData: {
+        hits: store.state.user.data.hits,
+        monthHits: store.state.user.data.monthHits,
+        maxRank: store.state.user.data.maxRank
+      },
+      avatar: {
+        id: store.state.user.data.avatar,
+        src: '',
+        alt: ''
       }
     }
+  },
+  computed: {
+    necessaryXp() {
+      return this.xp.total - this.xp.current
+    },
+    barPercentage() {
+      return (this.xp.current/this.xp.total)*100;
+    },
+    brokenHearts() {
+      return Math.abs(this.hp - 3);
+    },
+    fullHearts() {
+      return this.hp;
+    }
+  },
+  methods: {
+    logout() {
+      store.commit("logout");
+      this.$router.go();
+    }
+  },
+  created() {
+    axiosClient.get(`/avatars/${this.avatar.id}`)
+        .then((res) => res.data)
+        .then((res) => {
+          this.avatar.src = res.imageUrl;
+          this.avatar.alt = res.name;
+        });
   }
 }
 </script>
