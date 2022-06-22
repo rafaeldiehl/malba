@@ -253,11 +253,11 @@ export default {
 
 <style lang="scss" scoped>
 #dashboard {
-  @apply bg-zinc-100 min-h-screen flex flex-col items-center;
+  @apply bg-zinc-100 min-h-screen flex flex-col justify-center items-center;
 }
 
 .container {
-  @apply max-w-[610px] mt-32 min-h-[calc(100vh-10.75rem)] flex flex-col gap-6 mb-10 bg-white rounded-xl border-2 border-zinc-200 p-10;
+  @apply max-w-[610px] mt-32 flex flex-col gap-6 mb-10 bg-white rounded-xl border-2 border-zinc-200 p-10;
 
   form {
     .form-container {

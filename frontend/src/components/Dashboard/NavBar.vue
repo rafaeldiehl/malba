@@ -138,12 +138,12 @@ export default {
     }
 
     .level {
-      @apply absolute text-xs bottom-[-0.9em] font-bold text-white bg-sky-900 w-5 h-5 flex justify-center items-center rounded-full border-[3px] border-sky-600 left-1/2 translate-x-[-50%] z-20;
+      @apply absolute text-xs bottom-[-0.9em] font-bold text-white bg-sky-900 w-5 h-5 flex justify-center items-center rounded-full border-[3px] border-sky-500 left-1/2 translate-x-[-50%] z-20;
     }
 
     &:after {
       content: '';
-      @apply absolute w-[3.9rem] h-[3.9rem] border-sky-600 border-[3px] top-1/2 left-1/2 rounded-full translate-x-[-50%] -translate-y-[50%] z-10;
+      @apply absolute w-[3.9rem] h-[3.9rem] border-sky-500 border-[3px] top-1/2 left-1/2 rounded-full translate-x-[-50%] -translate-y-[50%] z-10;
     }
       
     &:hover {
