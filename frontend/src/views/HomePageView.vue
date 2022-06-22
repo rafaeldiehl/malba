@@ -34,7 +34,7 @@
           </h1>
           <p>Através de um ensino lúdico e ferramentas minimalistas, aprenda Matemática básica e resolva exercícios gratuitamente.</p>
           <button>
-            <router-link to="sign-up">Quero experimentar</router-link>
+            <router-link to="register">Quero experimentar</router-link>
           </button>
         </header>
         <img :src="mockup.src" :alt="mockup.alt">
