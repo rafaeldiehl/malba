@@ -96,7 +96,7 @@ export default {
 
 <style lang="scss" scoped>
 .dashboard-navbar {
-  @apply h-[5.25rem] w-screen fixed top-0 left-0 bg-white flex justify-center items-center border-b-zinc-200 border-b-2;
+  @apply h-[5.25rem] z-50 w-screen fixed top-0 left-0 bg-white flex justify-center items-center border-b-zinc-200 border-b-2;
 
   @media (max-width: 1000px) {
     @apply px-5;

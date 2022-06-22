@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+
 import HomePageView from "../views/HomePageView.vue";
 import SignUpView from "../views/SignUpView.vue";
 import SignInView from "../views/SignInView.vue";
@@ -7,6 +8,8 @@ import UserProfileView from "../views/UserProfileView.vue";
 import ConquestsPageView from "../views/ConquestsPageView.vue";
 import ConfigPageView from "../views/ConfigPageView.vue";
 import RankingPageView from "../views/RankingPageView.vue";
+
+import store from "@/store";
 
 const routes = [
   {
@@ -26,6 +29,7 @@ const routes = [
   },
   {
     path: "/dashboard",
+    meta: { requiresAuth: true },
     name: "dashboard",
     component: UserDashboardView,
   },
@@ -54,6 +58,19 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.requiresAuth && !store.state.user.token) {
+    next({ name: "sign-in" });
+  } else if (
+    (store.state.user.token && to.name === "sign-in") ||
+    to.name === "sign-up"
+  ) {
+    next({ name: "dashboard" });
+  } else {
+    next();
+  }
 });
 
 export default router;

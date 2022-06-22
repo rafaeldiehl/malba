@@ -12,8 +12,8 @@
           <div class="progress-bar">
             <span>0 XP</span>
             <div class="border">
-              <span class="paint w-[20%] bg-green-600"></span>
-              <span class="progress-value left-[20%] translate-x-[-20%]">10 XP</span>
+              <span class="paint w-[50%] bg-green-600"></span>
+              <span class="progress-value left-[50%] translate-x-[-20%]">25 XP</span>
             </div>
             <span>50 XP</span>
           </div>
