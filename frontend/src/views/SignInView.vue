@@ -21,6 +21,9 @@
         v-model="credentials.password"
         required
       />
+      <div class="error-message" v-if="axiosError">
+        Credenciais inválidas. Redigite os campos e tente novamente!
+      </div>
       <form-button :buttonDisabled="disabled">Entrar</form-button>
     </form>
     <div class="shortcuts">
@@ -60,7 +63,8 @@ export default {
         email: "",
         password: ""
       },
-      disabled: true
+      disabled: true,
+      axiosError: false
     }
   },
   methods: {
@@ -74,7 +78,11 @@ export default {
         .dispatch('login', user)
         .then(() => {
           this.$router.push({name: "dashboard"});
-        }) 
+        })
+        .catch((err) => {
+          console.log(err);
+          this.axiosError = true;
+        });
     },
      checkInputs() {
       // Verifica se os inputs estão preenchidos
@@ -130,5 +138,9 @@ header {
       @apply text-sky-600;
     }
   }
+}
+
+.error-message {
+  @apply w-full text-red-500 text-center text-sm mt-2;
 }
 </style>

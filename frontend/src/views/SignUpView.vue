@@ -116,7 +116,7 @@ export default {
       console.log(user);
 
       store
-        .dispatch('register', user)
+        .dispatch('register', user);
 
       this.modal = true;
     },

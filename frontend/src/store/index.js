@@ -12,9 +12,8 @@ export default createStore({
   },
   getters: {},
   actions: {
-    register({ commit }, user) {
+    register(_, user) {
       return axiosClient.post("/register", user).then(({ data }) => {
-        commit("setUser", data);
         return data;
       });
     },

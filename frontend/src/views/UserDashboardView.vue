@@ -1,7 +1,7 @@
 <template>
   <div id="dashboard">
     <nav-bar active="home"></nav-bar>
-    <div class="container">
+    <div class="container" v-if="!mobileView">
       <div class="subtopics-list">
         <div v-if="topics">
         </div>
@@ -60,6 +60,79 @@
         </div>
       </div>
     </div>
+    <div v-else>
+      <header class="mobile-header">
+        <button @click="this.lessonsActive = true" :class="{ 'active':lessonsActive }">
+          <img :src="icons.book.src" :alt="icons.book.src">
+          <span>Lições</span>
+        </button>
+        <button @click="this.lessonsActive = false" :class="{ 'active':!lessonsActive }">
+          <span>Dados</span>
+          <img :src="icons.data.src" :alt="icons.data.src">
+        </button>
+      </header>
+      <div class="mobile-container">
+        <div v-if="lessonsActive">
+          <div v-if="topics">
+          </div>
+          <div v-else class="error">
+            <img :src="icons.sad.src" :alt="icons.sad.alt">
+            <h3>Ops, algo deu errado</h3>
+            Infelizmente não possível carregar nenhum tópico.
+          </div>
+        </div>
+        <div v-else>
+          <div class="data-list">
+            <div class="progress">
+              <h2>Progresso de nível</h2>
+              <div class="progress-bar">
+                <span>0 XP</span>
+                <div class="border">
+                  <span class="paint bg-green-600" :class="'w-[' + barPercentage + '%]'"></span>
+                  <span class="progress-value translate-x-[-20%]" :class="'left-[' + barPercentage + '%]'">{{ xp.current }} XP</span>
+                </div>
+                <span>{{ xp.total }} XP</span>
+              </div>
+              <span class="tip">{{ necessaryXp }} XP necessários para o próximo nível</span>
+            </div>
+
+            <div class="hp">
+              <h2>Pontos de vida</h2>
+              <div class="hearts-container">
+                <img :src="icons.heart.src" :alt="icons.heart.alt" v-for="n in fullHearts" :key="n" />
+                <img :src="icons.brokenHeart.src" :alt="icons.brokenHeart.alt" v-for="n in brokenHearts" :key="n" />
+              </div>
+              <span class="tip">
+                <img :src="icons.lightbulb.src" :alt="icons.lightbulb.alt">
+                Um hp leva 10 minutos para regenerar</span>
+            </div>
+
+            <div class="hits-ranking">
+              <div class="hits-container">
+                <div class="hit-container">
+                  <span class="title">Acertos totais</span>
+                  <span class="value">{{ hitsData.hits }}</span>
+                </div>
+                <div class="hit-container">
+                  <span class="title">Acertos mensais</span>
+                  <span class="value">{{ hitsData.monthHits }}</span>
+                </div>
+                <div class="hit-container">
+                  <span class="title">Ranking máximo</span>
+                  <span class="value">#{{ hitsData.maxRank }}</span>
+                </div>
+              </div>
+              <button>
+                <router-link to="/dashboard/ranking">
+                  Visualizar ranking
+                  <img :src="icons.trophy.src" :alt="icons.trophy.alt" />
+                </router-link>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>  
 </template>
 
@@ -71,6 +144,8 @@ import heartIcon from '@/assets/icons/heart.svg';
 import brokenHeartIcon from '@/assets/icons/broken-heart.svg';
 import lightbulbIcon from '@/assets/icons/lightbulb.svg';
 import sadIcon from '@/assets/icons/sad.svg';
+import dataIcon from '@/assets/icons/data.svg';
+import bookIcon from '@/assets/icons/book.svg';
 
 import store from "@/store";
 
@@ -101,6 +176,14 @@ export default {
         sad: {
           src: sadIcon,
           alt: "Desculpe pelo erro"
+        },
+        book: {
+          src: bookIcon,
+          alt: "Lições"
+        },
+        data: {
+          src: dataIcon,
+          alt: "Dados"
         }
       },
       topics: null,
@@ -113,7 +196,9 @@ export default {
         hits: store.state.user.data.hits,
         monthHits: store.state.user.data.monthHits,
         maxRank: store.state.user.data.maxRank
-      }
+      },
+      mobileView: false,
+      lessonsActive: false,
     }
   },
   computed: {
@@ -129,6 +214,17 @@ export default {
     fullHearts() {
       return this.hp;
     }
+  },
+  methods: {
+    handleMobileView() {
+      this.mobileView = window.innerWidth <= 680;
+    }
+  },
+  created() {
+    this.handleMobileView();
+    window.addEventListener("resize", () => {
+      this.handleMobileView();
+    });
   }
 }
 </script>
@@ -139,7 +235,7 @@ export default {
 }
 
 .container {
-  @apply max-w-[1000px] mt-32 flex flex-row gap-6 mb-10;
+  @apply max-w-[1000px] mt-32 w-[95vw] flex flex-row gap-6 mb-10;
 }
 
 .subtopics-list, .data-list > div {
@@ -166,7 +262,7 @@ export default {
   @apply w-full;
 
   .error {
-    @apply p-5 flex flex-col items-center justify-center h-full gap-3;
+    @apply p-5 flex flex-col items-center justify-center h-full gap-3 text-center;
 
     h3 {
       @apply text-3xl text-zinc-700 font-medium mt-3;
@@ -236,5 +332,40 @@ export default {
       @apply bg-amber-400;
     }
   }
+}
+
+.mobile-header {
+  @apply fixed top-0 w-[calc(100vw-2.5rem)] left-0 flex justify-between m-5;
+
+  button {
+    @apply bg-white border-2 border-zinc-300 flex justify-center items-center gap-2 rounded-lg py-2 px-4 transition font-medium;
+
+    &:hover {
+      @apply border-sky-500;
+    }
+  }
+
+  button.active {
+    @apply text-zinc-900;
+
+    img {
+      @apply brightness-50;
+    }
+  }
+}
+
+.mobile-container {
+  .error {
+    @apply p-5 flex flex-col items-center justify-center h-full gap-3 text-center text-xl mx-5;
+
+    h3 {
+      @apply text-4xl text-zinc-700 font-medium mt-3;
+    }
+
+    img {
+      @apply h-[40vw];
+    }
+  }
+
 }
 </style>
