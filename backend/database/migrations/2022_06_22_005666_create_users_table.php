@@ -19,8 +19,16 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('username')->unique();
+            $table->boolean('isAdmin');
+            $table->boolean('isDarkTheme');
+            $table->integer('hits')->nullable();
+            $table->integer('monthHits')->nullable();
+            $table->integer('maxRank')->nullable();
+            $table->integer('xp')->nullable();
+            $table->integer('hp')->nullable();
+            $table->foreignId('avatar')->constrained();
             $table->rememberToken();
-            $table->timestamps();
         });
     }
 

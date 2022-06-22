@@ -57,6 +57,17 @@ class DatabaseSeeder extends Seeder
                 'alternativesNumber' => 2,
             ],
         ]);
+
+        // default admin
+        DB::table('users')->insert([
+            'name' => 'Administrador',
+            'email' => 'admin@admin.com',
+            'password' => '123456',
+            'username' => 'admin',
+            'isAdmin' => true,
+            'isDarkTheme' => false,
+            'avatar' => 1
+        ]);
     }
 }
 
