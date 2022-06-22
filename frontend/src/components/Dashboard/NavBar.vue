@@ -15,7 +15,7 @@
           <span class="level">1</span>
         </div>
         <div class="profile-data" v-if="!mobileView">
-          <h3>12345678910111</h3>
+          <h3>user123</h3>
           <router-link to="/dashboard/profile">Ver perfil</router-link>
         </div>
       </div>

@@ -3,9 +3,14 @@
     <nav-bar active="home"></nav-bar>
     <div class="container">
       <div class="subtopics-list">
-        ...
+        <div v-if="topics">
+        </div>
+        <div v-else class="error">
+          <img :src="icons.sad.src" :alt="icons.sad.alt">
+          <h3>Ops, algo deu errado</h3>
+          Infelizmente não possível carregar nenhum tópico.
+        </div>
       </div>
-
       <div class="data-list">
         <div class="progress">
           <h2>Progresso de nível</h2>
@@ -29,7 +34,7 @@
           </div>
           <span class="tip">
             <img :src="icons.lightbulb.src" :alt="icons.lightbulb.alt">
-            Um ponto de vida leva 10 minutos para regenerar</span>
+            Um hp leva 10 minutos para regenerar</span>
         </div>
 
         <div class="hits-ranking">
@@ -66,6 +71,7 @@ import trophyIcon from '@/assets/icons/trophy.svg';
 import heartIcon from '@/assets/icons/heart.svg';
 import brokenHeartIcon from '@/assets/icons/broken-heart.svg';
 import lightbulbIcon from '@/assets/icons/lightbulb.svg';
+import sadIcon from '@/assets/icons/sad.svg';
 
 export default {
   name: 'UserDashboardView',
@@ -90,9 +96,13 @@ export default {
         brokenHeart: {
           src: brokenHeartIcon,
           alt: "Ponto de vida vazio"
+        },
+        sad: {
+          src: sadIcon,
+          alt: "Desculpe pelo erro"
         }
       },
-      avatars: []
+      topics: null
     }
   }
 }
@@ -129,6 +139,18 @@ export default {
 
 .subtopics-list {
   @apply w-full;
+
+  .error {
+    @apply p-5 flex flex-col items-center justify-center h-full gap-3;
+
+    h3 {
+      @apply text-3xl text-zinc-700 font-medium mt-3;
+    }
+
+    img {
+      @apply h-36;
+    }
+  }
 }
 
 .progress-bar {
