@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +14,49 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // initial avatars
+        DB::table('avatars')->insert([
+            [
+                'name' => 'Roxo',
+                'imageUrl' => 'https://i.imgur.com/647bBDh.png',
+                'isAvailable' => true,
+            ],
+            [
+                'name' => 'Verde',
+                'imageUrl' => 'https://i.imgur.com/sRdAV6W.png',
+                'isAvailable' => true,
+            ],
+            [
+                'name' => 'Amarelo',
+                'imageUrl' => 'https://i.imgur.com/8pvfkWI.png',
+                'isAvailable' => true,
+            ],
+            [
+                'name' => 'Rosa',
+                'imageUrl' => 'https://i.imgur.com/Apkzere.png',
+                'isAvailable' => true,
+            ]
+        ]);
+
+        // initial question types
+        DB::table('types')->insert([
+            [
+                'name' => 'Dissertativa',
+                'alternativesNumber' => 0,
+            ],
+            [
+                'name' => 'Alternativa',
+                'alternativesNumber' => 4,
+            ],
+            [
+                'name' => 'Selecione',
+                'alternativesNumber' => 4,
+            ],
+            [
+                'name' => 'Verdadeiro ou falso',
+                'alternativesNumber' => 2,
+            ],
+        ]);
     }
 }
+
