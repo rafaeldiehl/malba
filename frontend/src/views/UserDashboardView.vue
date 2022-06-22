@@ -91,7 +91,8 @@ export default {
           src: brokenHeartIcon,
           alt: "Ponto de vida vazio"
         }
-      }
+      },
+      avatars: []
     }
   }
 }

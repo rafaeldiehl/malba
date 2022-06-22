@@ -139,7 +139,7 @@ $ npm run serve
 
 <h2 id="install-backend">Backend</h2>
 
-<p id="config-banco">Para rodar o backend, edite o [arquivo com as variáveis de ambiente](https://github.com/rafaeldiehl/malba/blob/main/backend/.env.example), configurando seu banco de dados adequadamente. Exemplo:</p>
+<p id="config-banco">Para rodar o backend, edite o <a href="https://github.com/rafaeldiehl/malba/blob/main/backend/.env.example">arquivo com as variáveis de ambiente</a>, configurando seu banco de dados adequadamente. Exemplo:</p>
 
 ```bash
 # Acesse o diretório backend
@@ -183,12 +183,8 @@ $ php artisan serve
 
 <p id="rotas">As seguintes rotas da API estão disponíveis, caso queira testar requisições HTTP:</p>
 
-- `/api/users` (retorna os usuários cadastrados)
-- `/api/topics` (retorna os tópicos cadastrados)
-- `/api/subtopics` (retorna os subtópicos cadastradas)
-- `/api/questions` (retorna as questões cadastradas)
-- `/api/question-types` (retorna os possíveis tipos de questões)
-- `/api/alternatives` (retorna as alternativas das questões)
+- `/api/users` (retorna os avatares)
+- `/api/types` (retorna os tipos de questões)
 
 <h1 id="licensa">Licença</h1>
 
