@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-import createPersistedState from "vuex-persistedstate";
+//import createPersistedState from "vuex-persistedstate";
 
 import axiosClient from "@/services/axios";
 
@@ -7,25 +7,16 @@ export default createStore({
   state: {
     user: {
       data: {},
-      token: sessionStorage.getItem("TOKEN"),
+      token: null,
     },
   },
   getters: {},
   actions: {
     register({ commit }, user) {
-      return fetch("http://localhost:8000/api/register", {
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-        method: "POST",
-        body: JSON.stringify(user),
-      })
-        .then((res) => res.json())
-        .then((res) => {
-          commit("setUser", res);
-          return res;
-        });
+      return axiosClient.post("/register", user).then(({ data }) => {
+        commit("setUser", data);
+        return data;
+      });
     },
     login({ commit }, user) {
       return axiosClient.post("/login", user).then(({ data }) => {
@@ -39,6 +30,14 @@ export default createStore({
         return res;
       });
     },
+    /*update({ commit }, user) {
+      return axiosClient
+        .put(`/users/${user.id}}`, user.credentials)
+        .then(({ data }) => {
+          commit("setUser", data);
+          return data;
+        });
+    },*/
   },
   mutations: {
     logout: (state) => {
@@ -53,5 +52,5 @@ export default createStore({
     },
   },
   modules: {},
-  plugins: [createPersistedState()],
+  //plugins: [createPersistedState()],
 });

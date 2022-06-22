@@ -189,6 +189,7 @@ export default {
       },
       avatarModal: false,
       avatars: null,
+      id: store.state.user.data.id,
       avatar: {
         id: store.state.user.data.avatar,
         src: "",
@@ -250,14 +251,21 @@ export default {
       this.iconColor.sun = '#27272A';
       this.iconColor.moon = '#0ea5e9';
     },
-    sendData() {
-      const newValues = {
-        name: this.name,
-        username: this.username,
-        theme: this.theme,
-        avatar: this.avatar.id
+    async sendData() {
+      /*const user = {
+        id: this.id,
+        credentials: {
+          name: this.name,
+          username: this.username,
+          isDarkTheme: this.theme,
+          avatar: this.avatar.id
+        }
       }
-      console.log(newValues);
+
+      await store
+        .dispatch('update', user);
+
+      this.$router.go();*/
     }
   }
 }
