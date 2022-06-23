@@ -44,6 +44,15 @@
           </div>
         </div>
       </div>
+      <div class="data-group">
+        <div v-for="(data, index) in dataGroup" :key="index">
+          <img :src="data.src" :alt="data.alt">
+          <div>
+            <h6>{{ data.alt }}</h6>
+            <span>{{ data.content }}</span>
+          </div>
+        </div>
+      </div>
       <div class="buttons-container">
         <router-link to="/dashboard/config">
           <img :src="icons.edit.src" :alt="icons.edit.alt">
@@ -68,6 +77,10 @@ import logoutIcon from '@/assets/icons/logout.svg';
 import trophyIcon from '@/assets/icons/trophy.svg';
 import heartIcon from '@/assets/icons/heart.svg';
 import brokenHeartIcon from '@/assets/icons/broken-heart.svg';
+import userIcon from '@/assets/icons/user.svg';
+import usernameIcon from '@/assets/icons/username.svg';
+import mailIcon from '@/assets/icons/mail.svg';
+import themeIcon from '@/assets/icons/theme.svg';
 
 import store from '@/store';
 import axiosClient from '@/services/axios';
@@ -99,6 +112,28 @@ export default {
         brokenHeart: {
           src: brokenHeartIcon,
           alt: "Ponto de vida vazio"
+        }
+      },
+      dataGroup: {
+        user: {
+          src: userIcon,
+          alt: "Usuário",
+          content: store.state.user.data.name
+        },
+        mail: {
+          src: mailIcon,
+          alt: "E-mail",
+          content: store.state.user.data.email
+        },
+        username: {
+          src: usernameIcon,
+          alt: "Nome de usuário",
+          content: store.state.user.data.username
+        },
+        theme: {
+          src: themeIcon,
+          alt: "Tema de cor",
+          content: store.state.user.data.isDarkTheme ? 'Tema escuro' : 'Tema claro'
         }
       },
       xp: {
@@ -263,6 +298,26 @@ header {
       &:hover {
         @apply bg-red-600;
       }
+    }
+  }
+}
+
+.data-group {
+  @apply flex flex-row gap-3 flex-wrap justify-center items-center;
+
+  > div {
+    @apply w-[45%] flex flex-row gap-3;
+
+    img {
+      @apply w-8;
+    }
+
+    h6 {
+      @apply text-xs;
+    }
+
+    span {
+      @apply text-zinc-900;
     }
   }
 }

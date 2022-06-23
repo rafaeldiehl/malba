@@ -142,7 +142,15 @@ export default {
   @apply flex flex-row gap-6;
 
   li a {
-    @apply flex flex-row gap-3 rounded-lg;
+    @apply flex flex-row gap-3 rounded-lg justify-center items-center px-3 py-2;
+
+    &:hover {
+      @apply bg-zinc-200;
+    }
+  }
+
+  .img-container {
+    @apply h-5 w-5 flex justify-center items-center rounded-lg gap-3;
   }
 
   @media (max-width: 680px) {
@@ -184,7 +192,7 @@ export default {
     }
 
     @media (max-width: 680px) {
-      @apply ml-5;
+      @apply ml-7;
     }
   }
 
@@ -203,10 +211,13 @@ export default {
       }
     }
   }
-
 }
 
 .active {
-  @apply text-sky-600 select-none;
+  @apply text-zinc-900 select-none;
+
+  img {
+    @apply brightness-50;
+  }
 }
 </style>

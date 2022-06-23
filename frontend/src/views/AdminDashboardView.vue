@@ -1,7 +1,12 @@
 <template>
   <div id="dashboard">
     <nav-bar active="home"></nav-bar>
-    <div class="container"></div>
+    <div class="container">
+      <header>
+        <h2>Painel do administrador</h2>
+        <p>Clique nos botões abaixo para gerenciar as tabelas.</p>
+      </header>
+    </div>
   </div>
 </template>
 
@@ -26,4 +31,16 @@ export default {
 .container {
   @apply max-w-[1000px] mt-32 flex flex-row gap-6 mb-10;
 }
+
+header {
+  h2 {
+    @apply text-zinc-900 text-4xl font-medium mb-2;
+  }
+
+  p {
+    @apply text-xl;
+  }
+}
+
+
 </style>
