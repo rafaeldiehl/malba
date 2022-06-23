@@ -250,13 +250,35 @@ export default {
   }
 }
 
-.hearts-container {
-  @apply flex justify-center items-center gap-7 mt-10 mb-8 ml-[-2rem];
+.data-list {
+  @apply w-[90vw] flex justify-center items-center;
 
-  img {
-    @apply animate-bounce;
+  @media (max-width: 680px) {
+    > div {
+      @apply min-w-[90vw] max-w-[90vw] text-sm;
+    }
+
+    .progress-bar {
+      @apply flex flex-row justify-center items-center font-medium w-full m-0 my-10;
+    }
   }
 }
+
+.hp {
+  .hearts-container {
+    @apply flex justify-center items-center gap-7 mt-10 mb-8 ml-[-2rem];
+
+    img {
+      @apply animate-bounce;
+    }
+
+    @media (max-width: 680px) {
+      @apply ml-0 w-full;
+    }
+  }
+}
+
+
 
 .subtopics-list {
   @apply w-full;
@@ -291,7 +313,7 @@ export default {
 }
 
 .data-list {
-  @apply flex flex-col justify-start gap-6;
+  @apply flex flex-col justify-start gap-6 w-full;
 
   div {
     @apply w-[405px];

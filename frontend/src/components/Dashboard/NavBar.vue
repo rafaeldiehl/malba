@@ -12,11 +12,11 @@
         </li>
       </ul>
       <div class="profile">
-        <div class="picture">
+        <router-link to="/dashboard/profile" class="picture">
           <img :src="avatar.src" :alt="avatar.alt">
           <img v-if="isAdmin" :src="icons.star.src" :alt="icons.star.alt" class="star">
           <span v-else class="level">1</span>
-        </div>
+        </router-link>
         <div class="profile-data" v-if="!mobileView">
           <h3>{{ username }}</h3>
           <button v-if="isAdmin" @click="logout">Encerrar sessão</button>

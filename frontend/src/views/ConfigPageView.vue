@@ -86,7 +86,7 @@
           <router-link to="/reset-password">
             <img :src="icons.lock.src" :alt="icons.lock.alt">
             Alterar senha
-          </router-link>'
+          </router-link>
           <button>
             <img :src="icons.trash.src" :alt="icons.trash.alt">
             Apagar conta
@@ -343,6 +343,10 @@ export default {
       }
     }
   }
+
+  @media (max-width: 680px) {
+    @apply mt-0 w-[95vw];
+  }
 }
 
 header {
@@ -363,7 +367,7 @@ header {
   }
 
   .button-container {
-    @apply flex flex-row justify-center items-center gap-1 mt-6;
+    @apply flex flex-row justify-center items-center gap-2 mt-6;
 
     > * {
       @apply w-full flex flex-row justify-center items-center gap-3 py-4 rounded-lg text-white transition;

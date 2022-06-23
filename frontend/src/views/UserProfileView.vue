@@ -156,6 +156,10 @@ export default {
 
 .container {
   @apply max-w-[610px] mt-32 flex flex-col gap-6 mb-10 bg-white rounded-xl border-2 border-zinc-200 p-10;
+
+  @media (max-width: 680px) {
+    @apply mt-0 w-[95vw];
+  }
 }
 
 header {
@@ -216,6 +220,10 @@ header {
   &:after {
     content: '';
     @apply absolute w-[5.8rem] h-[5.8rem] border-sky-500 border-4 top-[calc(50%-1rem)] left-1/2 rounded-full translate-x-[-50%] translate-y-[calc(-50%+0.5rem)] z-10;
+  }
+
+  @media (max-width: 550px) {
+    @apply hidden;
   }
 }
 
