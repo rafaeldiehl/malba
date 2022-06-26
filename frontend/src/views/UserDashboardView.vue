@@ -219,7 +219,7 @@ export default {
 
 <style lang="scss" scoped>
 #dashboard {
-  @apply bg-zinc-100 min-h-screen flex flex-col justify-center items-center;
+  @apply bg-zinc-100 min-h-screen flex flex-col justify-center items-center overflow-x-hidden;
 }
 
 .container {

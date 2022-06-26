@@ -9,7 +9,6 @@
 <script>
 import NavBar from '@/components/Dashboard/NavBar.vue';
 
-
 export default {
   name: 'RankingPageView',
   components: {

@@ -75,8 +75,11 @@
           required
         />
         <form-button>Salvar</form-button>
+        <button v-if="isAdmin" class="logout" @click="logout">
+          Encerrar sessão
+        </button>
       </form>
-      <div class="danger-zone">
+      <div class="danger-zone" v-if="!isAdmin">
         <hr>
         <header>
           <img :src="icons.danger.src" :alt="icons.danger.alt">
@@ -197,7 +200,8 @@ export default {
       },
       theme: store.state.user.data.isDarkTheme,
       name: store.state.user.data.name,
-      username: store.state.user.data.username
+      username: store.state.user.data.username,
+      isAdmin: store.state.user.data.isAdmin
     }
   },
   created() {
@@ -250,6 +254,10 @@ export default {
       this.theme = true;
       this.iconColor.sun = '#27272A';
       this.iconColor.moon = '#0ea5e9';
+    },
+    logout() {
+      store.commit("logout");
+      this.$router.go();
     },
     async sendData() {
       /*const user = {
@@ -456,6 +464,14 @@ header {
     &:hover {
       @apply bg-zinc-200 text-black;
     }
+  }
+}
+
+.logout {
+  @apply bg-red-500 w-full text-center p-4 rounded-lg text-xl text-white transition;
+
+  &:hover:not(:disabled) {
+    @apply bg-red-600;
   }
 }
 </style>

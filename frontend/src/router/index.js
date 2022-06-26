@@ -65,6 +65,12 @@ const routes = [
     component: AdminDashboardView,
   },
   {
+    path: "/admin/config",
+    meta: { requiresAdmin: true },
+    name: "admin-config",
+    component: ConfigPageView,
+  },
+  {
     path: "/:pathMatch(.*)*",
     redirect: { name: "dashboard" },
   },

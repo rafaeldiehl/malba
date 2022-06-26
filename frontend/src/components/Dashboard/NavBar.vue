@@ -2,7 +2,18 @@
   <nav class="dashboard-navbar">
     <div class="container">
       <ul class="dashboard-links">
-        <li v-for="link in links" :key="link.key" :class="{ 'active': link.active }">
+        <div class="user-links" v-if="!isAdmin">
+          <li v-for="link in userLinks" :key="link.key" :class="{ 'active': link.active }">
+            <router-link :to="link.path">
+              <div class="img-container">
+                <img :src="link.icon" />
+              </div>
+              <span v-if="!mobileView">{{ link.name }}</span>
+            </router-link>
+          </li>
+        </div>
+       <div class="admin-links" v-else>
+        <li v-for="link in adminLinks" :key="link.key" :class="{ 'active': link.active }">
           <router-link :to="link.path">
             <div class="img-container">
               <img :src="link.icon" />
@@ -10,17 +21,18 @@
             <span v-if="!mobileView">{{ link.name }}</span>
           </router-link>
         </li>
+       </div>
+      
       </ul>
       <div class="profile">
-        <router-link to="/dashboard/profile" class="picture">
+        <router-link :to="link" class="picture">
           <img :src="avatar.src" :alt="avatar.alt">
           <img v-if="isAdmin" :src="icons.star.src" :alt="icons.star.alt" class="star">
           <span v-else class="level">1</span>
         </router-link>
         <div class="profile-data" v-if="!mobileView">
           <h3>{{ username }}</h3>
-          <button v-if="isAdmin" @click="logout">Encerrar sessão</button>
-          <router-link v-else to="/dashboard/profile">Ver perfil</router-link>
+          <router-link :to="link">Ver perfil</router-link>
         </div>
       </div>
     </div>
@@ -34,6 +46,9 @@ import starIcon from "@/assets/icons/star.svg";
 import homeIcon from "@/assets/icons/home.svg";
 import configIcon from "@/assets/icons/config.svg";
 import medalIcon from "@/assets/icons/medal.svg";
+import folderIcon from "@/assets/icons/folder2.svg";
+import topicIcon from "@/assets/icons/topic2.svg";
+import questionIcon from "@/assets/icons/question2.svg";
 
 import store from "@/store";
 import axiosClient from "@/services/axios";
@@ -42,7 +57,7 @@ export default {
   name: 'NavBar',
   data() {
     return {
-      links: [
+      userLinks: [
         {
           key: "home",
           name: 'Início',
@@ -65,6 +80,29 @@ export default {
           icon: medalIcon
         }
       ],
+      adminLinks: [
+        {
+          key: "topic",
+          name: 'Tópicos',
+          path: '/dashboard/topics',
+          active: this.active == 'topics',
+          icon: folderIcon
+        },
+        {
+          key: "subtopics",
+          name: 'Subtópicos',
+          path: '/dashboard/subtopics',
+          active: this.active == 'subtopics',
+          icon: topicIcon
+        },
+        {
+          key: "questions",
+          name: 'Subtópicos',
+          path: '/dashboard/questions',
+          active: this.active == 'questions',
+          icon: questionIcon
+        }
+      ],
       icons: {
         star: {
           src: starIcon,
@@ -83,12 +121,19 @@ export default {
   computed: {
     username() {
       return store.state.user.data.username;
+    },
+    link() {
+      if(this.isAdmin) {
+        return '/admin/config'
+      } else {
+        return '/dashboard/profile'
+      }
     }
   },
   props: {
     active: {
       validator(value) {
-        return ['home', 'config', 'conquests'].includes(value)
+        return ['home', 'config', 'conquests', 'topics', 'subtopics', 'questions'].includes(value)
       }
     }
   },
@@ -138,7 +183,7 @@ export default {
   }
 }
 
-.dashboard-links {
+.user-links, .admin-links {
   @apply flex flex-row gap-6;
 
   li a {
