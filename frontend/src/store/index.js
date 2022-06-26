@@ -1,5 +1,5 @@
 import { createStore } from "vuex";
-//import createPersistedState from "vuex-persistedstate";
+import createPersistedState from "vuex-persistedstate";
 
 import axiosClient from "@/services/axios";
 
@@ -51,5 +51,5 @@ export default createStore({
     },
   },
   modules: {},
-  //plugins: [createPersistedState()],
+  plugins: [createPersistedState()],
 });

@@ -126,7 +126,7 @@ export default {
   }
 
   @media (max-width: 680px) {
-    @apply top-auto bottom-0;
+    @apply top-auto bottom-0 bg-white border-b-0 border-t-2 border-t-zinc-200;
   }
 }
 
@@ -164,6 +164,14 @@ export default {
 
     img {
       @apply h-[80%];
+    }
+  }
+
+  @media (max-width: 375px) {
+    @apply gap-1;
+
+    img {
+      @apply h-[60%];
     }
   }
 }

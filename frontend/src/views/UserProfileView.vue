@@ -33,14 +33,7 @@
             <img :src="icons.brokenHeart.src" :alt="icons.brokenHeart.alt" v-for="n in brokenHearts" :key="n" />
               </span>
             </div>
-            <div class="progress-bar">
-              <span>0 XP</span>
-              <div class="border">
-                <span class="paint bg-green-600" :class="'w-[' + barPercentage + '%]'"></span>
-                <span class="progress-value translate-x-[-20%]" :class="'left-[' + barPercentage + '%]'">{{ xp.current }} XP</span>
-              </div>
-              <span>{{ xp.total }} XP</span>
-            </div>
+            <progress-bar :totalXp="xp.total" :currentXp="xp.current" :percentage="barPercentage"></progress-bar>
           </div>
         </div>
       </div>
@@ -69,6 +62,7 @@
 
 <script>
 import NavBar from '@/components/Dashboard/NavBar.vue';
+import ProgressBar from '@/components/Dashboard/ProgressBar.vue';
 
 //import example from "@/assets/avatars/avatar2.png";
 
@@ -88,7 +82,8 @@ import axiosClient from '@/services/axios';
 export default {
   name: 'UserProfileView',
   components: {
-    NavBar
+    NavBar,
+    ProgressBar
   },
   data() {
     return {
@@ -123,7 +118,7 @@ export default {
         mail: {
           src: mailIcon,
           alt: "E-mail",
-          content: store.state.user.data.email
+          content: store.state.user.data.email.match(/^.{0,3}/) + store.state.user.data.email.replace(/([^-]*)@/, "***@")
         },
         username: {
           src: usernameIcon,

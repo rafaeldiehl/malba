@@ -14,14 +14,7 @@
       <div class="data-list">
         <div class="progress">
           <h2>Progresso de nível</h2>
-          <div class="progress-bar">
-            <span>0 XP</span>
-            <div class="border">
-              <span class="paint bg-green-600" :class="'w-[' + barPercentage + '%]'"></span>
-              <span class="progress-value translate-x-[-20%]" :class="'left-[' + barPercentage + '%]'">{{ xp.current }} XP</span>
-            </div>
-            <span>{{ xp.total }} XP</span>
-          </div>
+          <progress-bar :totalXp="xp.total" :currentXp="xp.current" :percentage="barPercentage"></progress-bar>
           <span class="tip">{{ necessaryXp }} XP necessários para o próximo nível</span>
         </div>
 
@@ -60,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div class="mobile-container" v-else>
       <header class="mobile-header">
         <button @click="this.lessonsActive = true" :class="{ 'active':lessonsActive }">
           <img :src="icons.book.src" :alt="icons.book.src">
@@ -85,14 +78,7 @@
           <div class="data-list">
             <div class="progress">
               <h2>Progresso de nível</h2>
-              <div class="progress-bar">
-                <span>0 XP</span>
-                <div class="border">
-                  <span class="paint bg-green-600" :class="'w-[' + barPercentage + '%]'"></span>
-                  <span class="progress-value translate-x-[-20%]" :class="'left-[' + barPercentage + '%]'">{{ xp.current }} XP</span>
-                </div>
-                <span>{{ xp.total }} XP</span>
-              </div>
+             <progress-bar :totalXp="xp.total" :currentXp="xp.current" :percentage="barPercentage"></progress-bar>
               <span class="tip">{{ necessaryXp }} XP necessários para o próximo nível</span>
             </div>
 
@@ -138,6 +124,7 @@
 
 <script>
 import NavBar from '@/components/Dashboard/NavBar.vue';
+import ProgressBar from '@/components/Dashboard/ProgressBar.vue';
 
 import trophyIcon from '@/assets/icons/trophy.svg';
 import heartIcon from '@/assets/icons/heart.svg';
@@ -152,7 +139,8 @@ import store from "@/store";
 export default {
   name: 'UserDashboardView',
   components: {
-    NavBar
+    NavBar,
+    ProgressBar
   },
   data() {
     return {
@@ -296,22 +284,6 @@ export default {
   }
 }
 
-.progress-bar {
-  @apply flex flex-row justify-center items-center ml-[-1.8rem] mt-6 mb-10 font-medium text-zinc-900;
-
-  .border {
-    @apply w-[250px] h-[15px] mx-3 bg-zinc-300 rounded-[9999px] relative;
-
-    .paint {
-      @apply h-[15px] left-0 top-0 absolute rounded-[9999px];
-    }
-
-    .progress-value {
-      @apply absolute bottom-[-1.5rem] ml-[-1rem] text-xs;
-    }
-  }
-}
-
 .data-list {
   @apply flex flex-col justify-start gap-6 w-full;
 
@@ -354,6 +326,10 @@ export default {
       @apply bg-amber-400;
     }
   }
+}
+
+.mobile-container {
+  @apply my-12;
 }
 
 .mobile-header {

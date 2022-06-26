@@ -345,7 +345,7 @@ export default {
   }
 
   @media (max-width: 680px) {
-    @apply mt-0 w-[95vw];
+    @apply mt-4 mb-24 w-[90vw];
   }
 }
 

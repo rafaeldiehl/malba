@@ -10,6 +10,10 @@ button {
   @apply text-zinc-500;
 }
 
+body {
+  @apply overflow-x-hidden;
+}
+
 @media (max-width: 950px) {
   html {
     font-size: 14px;
