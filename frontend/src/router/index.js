@@ -3,6 +3,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomePageView from "../views/HomePageView.vue";
 import SignUpView from "../views/SignUpView.vue";
 import SignInView from "../views/SignInView.vue";
+import FirstStepsView from "../views/FirstStepsView.vue";
 import UserDashboardView from "../views/UserDashboardView.vue";
 import UserProfileView from "../views/UserProfileView.vue";
 import ConquestsPageView from "../views/ConquestsPageView.vue";
@@ -27,6 +28,12 @@ const routes = [
     path: "/login",
     name: "login",
     component: SignInView,
+  },
+  {
+    path: "/first-steps",
+    meta: { firstAccess: true },
+    name: "first-steps",
+    component: FirstStepsView,
   },
   {
     path: "/dashboard",
@@ -82,7 +89,11 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAdmin && !store.state.user.data.isAdmin) {
+  if (to.meta.firstAccess && store.state.user.data.username) {
+    next({ name: "dashboard" });
+  } else if (to.meta.firstAccess && !store.state.user.token) {
+    next({ name: "login" });
+  } else if (to.meta.requiresAdmin && !store.state.user.data.isAdmin) {
     next({ name: "dashboard" });
   } else if (
     to.meta.requiresAuth &&
@@ -92,6 +103,8 @@ router.beforeEach((to, from, next) => {
     next({ name: "admin" });
   } else if (to.meta.requiresAuth && !store.state.user.token) {
     next({ name: "login" });
+  } else if (to.meta.requiresAuth && !store.state.user.data.username) {
+    next({ name: "first-steps" });
   } else if (
     store.state.user.token &&
     (to.name === "login" || to.name === "register")

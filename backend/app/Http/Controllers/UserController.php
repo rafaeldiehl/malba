@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     public function index()
     {
-        return User::all();
+        return User::all()->where('isAdmin', '=', 0);
     }
 
     public function create()
@@ -25,6 +27,11 @@ class UserController extends Controller
     public function show($id)
     {
         return User::findOrFail($id);
+    }
+
+    public function admin()
+    {
+        return User::all()->where('isAdmin', '=', 1);
     }
 
 
@@ -58,4 +65,13 @@ class UserController extends Controller
     {
         //
     }
+
+    public function hitsAsc() {
+        return DB::table('users')->where('isAdmin', '=', 0)->where('hits', '!=', null)->orderBy('hits', 'ASC')->get();
+    }
+
+    public function hitsDesc() {
+        return DB::table('users')->where('isAdmin', '=', 0)->where('hits', '!=', null)->orderBy('hits', 'DESC')->get();
+    }
+
 }
