@@ -197,6 +197,14 @@ $ php artisan serve
 - `GET /api/avatars/:id` (retorna avatar especificado)
 - `GET /api/types` (retorna os tipos de questões)
 - `GET /api/types/:id` (retorna tipo de questão especificado)
+- `GET /api/topics` (retorna lista de tópicos)
+- `POST /api/topics` (cria um novo tópico)
+- `PUT /api/topics` (atualiza o tópico especificado)
+- `DELETE /api/topics/:id` (remove o tópico especificado)
+- `GET /api/subtopics` (retorna lista de subtópicos)
+- `POST /api/subtopics` (cria um novo subtópico)
+- `PUT /api/subtopics` (atualiza o subtópico especificado)
+- `DELETE /api/subtopics/:id` (remove o subtópico especificado)
 
 <h1 id="licensa">Licença</h1>
 
