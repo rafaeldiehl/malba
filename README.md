@@ -183,8 +183,20 @@ $ php artisan serve
 
 <p id="rotas">As seguintes rotas da API estão disponíveis, caso queira testar requisições HTTP:</p>
 
-- `/api/users` (retorna os avatares)
-- `/api/types` (retorna os tipos de questões)
+- `POST /api/register` (cadastra um usuário)
+- `POST /api/login` (autentica um usuário e retorna um token)
+- `POST /api/logout` (encerra sessão no lado do servidor)
+- `GET /api/users` (retorna os usuários clientes)
+- `GET /api/users/:id` (retorna o usuário especificado)
+- `GET /api/users/admin` (retorna os administradores)
+- `GET /api/users/hits/asc` (retorna os usuários pelos acertos em ordem crescente)
+- `GET /api/users/hits/desc` (retorna os usuários pelos acertos em ordem descrescente)
+- `PUT /api/users/:id` (atualiza preferências de um usuário)
+- `DELETE /api/users/:id` (remove um usuário)
+- `GET /api/avatars` (retorna os avatares)
+- `GET /api/avatars/:id` (retorna avatar especificado)
+- `GET /api/types` (retorna os tipos de questões)
+- `GET /api/types/:id` (retorna tipo de questão especificado)
 
 <h1 id="licensa">Licença</h1>
 

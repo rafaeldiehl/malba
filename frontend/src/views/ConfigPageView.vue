@@ -260,7 +260,7 @@ export default {
       this.$router.go();
     },
     async sendData() {
-      /*const user = {
+      const user = {
         id: this.id,
         credentials: {
           name: this.name,
@@ -271,9 +271,14 @@ export default {
       }
 
       await store
-        .dispatch('update', user);
-
-      this.$router.go();*/
+        .dispatch('update', user)
+        .then(() => {
+          this.$router.go();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.axiosError = true;
+        });
     }
   }
 }

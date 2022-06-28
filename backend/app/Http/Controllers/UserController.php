@@ -48,6 +48,11 @@ class UserController extends Controller
             $user->username = is_null($request->username) ? $user->username : $request->username;
             $user->isDarkTheme = is_null($request->isDarkTheme) ? $user->isDarkTheme : $request->isDarkTheme;
             $user->avatar = is_null($request->avatar) ? $user->avatar : $request->avatar;
+            $user->hits = is_null($request->hits) ? $user->hits : $request->hits;
+            $user->monthHits = is_null($request->monthHits) ? $user->monthHits : $request->monthHits;
+            $user->maxRank = is_null($request->maxRank) ? $user->maxRank : $request->maxRank;
+            $user->xp = is_null($request->xp) ? $user->xp : $request->xp;
+            $user->hp = is_null($request->hp) ? $user->hp : $request->hp;
             $user->save();
 
             return response([

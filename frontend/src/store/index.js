@@ -29,14 +29,14 @@ export default createStore({
         return res;
       });
     },
-    /*update({ commit }, user) {
+    update({ commit }, user) {
       return axiosClient
         .put(`/users/${user.id}}`, user.credentials)
         .then(({ data }) => {
-          commit("setUser", data);
+          commit("updateUser", data);
           return data;
         });
-    },*/
+    },
   },
   mutations: {
     logout: (state) => {
@@ -48,6 +48,10 @@ export default createStore({
       state.user.token = userData.token;
       state.user.data = userData.user;
       sessionStorage.setItem("TOKEN", userData.token);
+    },
+    updateUser: (state, userData) => {
+      state.user.data = {};
+      state.user.data = userData.user;
     },
   },
   modules: {},
