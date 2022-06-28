@@ -18,19 +18,9 @@ class AvatarController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show($id)
     {
         return Avatar::findOrFail($id);
-    }
-
-    public function edit($id)
-    {
-        //
     }
 
     public function update(Request $request, $id)

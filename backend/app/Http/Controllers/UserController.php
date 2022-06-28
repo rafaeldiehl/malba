@@ -14,16 +14,6 @@ class UserController extends Controller
         return User::all()->where('isAdmin', '=', 0);
     }
 
-    public function create()
-    {
-        //
-    }
-
-    public function store(Request $request)
-    {
-        //
-    }
-
     public function show($id)
     {
         return User::findOrFail($id);
@@ -32,12 +22,6 @@ class UserController extends Controller
     public function admin()
     {
         return User::all()->where('isAdmin', '=', 1);
-    }
-
-
-    public function edit($id)
-    {
-        //
     }
 
     public function update(Request $request, $id)
@@ -57,7 +41,7 @@ class UserController extends Controller
 
             return response([
                 "user" => $user,
-                "message" => "Usuário atualizado com sucesso..."
+                "message" => "Usuário atualizado com sucesso"
             ], 200);
         } else {
             return response()->json([

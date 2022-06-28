@@ -100,6 +100,46 @@ class DatabaseSeeder extends Seeder
                 'avatar' => 3
             ]
         ]);
+
+        // default topics
+        DB::table('topics')->insert([
+            [
+                'title' => 'Operações Básicas',
+                'pos' => 1
+            ],
+            [
+                'title' => 'Potenciação e Radiação',
+                'pos' => 2
+            ],
+            [
+                'title' => 'Expressões Numéricas',
+                'pos' => 3
+            ]
+        ]);
+
+        // default subtopics
+        DB::table('sub_topics')->insert([
+            [
+                'title' => 'Adição',
+                'pos' => 1,
+                'topic' => 1
+            ],
+            [
+                'title' => 'Subtração',
+                'pos' => 1,
+                'topic' => 1
+            ],
+            [
+                'title' => 'Multiplicação',
+                'pos' => 2,
+                'topic' => 1
+            ],
+            [
+                'title' => 'Divisão',
+                'pos' => 2,
+                'topic' => 1
+            ],
+        ]);
     }
 }
 

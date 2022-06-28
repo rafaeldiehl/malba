@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class SubTopic extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'title',
+        'pos',
+        'topic'
+    ];
+
+    public $timestamps = false;
 }

@@ -12,7 +12,8 @@ Route::get('/users/hits', function() {
 });
 Route::apiResource('users', App\Http\Controllers\UserController::class);
 
-
+Route::apiResource('topics', App\Http\Controllers\TopicController::class);
+Route::apiResource('subtopics', App\Http\Controllers\SubTopicController::class);
 Route::apiResource('avatars', App\Http\Controllers\AvatarController::class);
 Route::apiResource('types', App\Http\Controllers\TypeController::class);
 

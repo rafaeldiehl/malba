@@ -18,12 +18,6 @@ class TypeController extends Controller
         //
     }
 
-    public function store(Request $request)
-    {
-        //
-    }
-
-
     public function show($id)
     {
         return Type::findOrFail($id);
