@@ -37,6 +37,12 @@ export default createStore({
           return data;
         });
     },
+    delete({ commit }, id) {
+      return axiosClient.delete(`/users/${id}`).then((res) => {
+        commit("logout");
+        return res;
+      });
+    },
   },
   mutations: {
     logout: (state) => {

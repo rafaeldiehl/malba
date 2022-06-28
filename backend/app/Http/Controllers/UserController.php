@@ -68,7 +68,18 @@ class UserController extends Controller
 
     public function destroy($id)
     {
-        //
+        if(User::where('id', $id)->exists()) {
+            $user = User::find($id);
+            $user->delete();
+
+            return response()->json([
+                "message" => "Usuário removido com sucesso"
+            ], 202);
+            } else {
+            return response()->json([
+                "message" => "Usuário não encontrado"
+            ], 404);
+        }
     }
 
     public function hitsAsc() {

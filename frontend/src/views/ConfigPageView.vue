@@ -90,7 +90,7 @@
             <img :src="icons.lock.src" :alt="icons.lock.alt">
             Alterar senha
           </router-link>
-          <button>
+          <button @click="showDelete">
             <img :src="icons.trash.src" :alt="icons.trash.alt">
             Apagar conta
           </button>
@@ -98,7 +98,7 @@
       </div>
     </div>
   </div>
-  <div v-if="avatarModal" class="avatar-modal">
+  <div v-if="avatarModal" class="avatar-modal modal">
     <div class="card">
       <div v-if="avatars" class="modal-success">
         <h3>Selecione um avatar</h3>
@@ -121,6 +121,21 @@
           close
         </span>
       </div>
+    </div>
+  </div>
+  <div class="delete-modal modal" v-if="deleteModal">
+    <div class="card">
+      <h3>Apagar conta</h3>
+      <p>Você deseja realmente apagar sua conta?</p>
+      <div class="button-container">
+        <button @click="deleteAccount">Sim</button>
+        <button @click="closeDeleteModal">Não</button>
+      </div>
+      <button class="close-button" @click="closeDeleteModal">
+        <span class="material-symbols-outlined">
+          close
+        </span>
+      </button>
     </div>
   </div>
 </template>
@@ -191,6 +206,7 @@ export default {
         moon: '#27272A'
       },
       avatarModal: false,
+      deleteModal: false,
       avatars: null,
       id: store.state.user.data.id,
       avatar: {
@@ -231,9 +247,15 @@ export default {
     closeAvatarModal() {
       this.avatarModal = false;
     },
+    closeDeleteModal() {
+      this.deleteModal = false;
+    },
     showAvatars() {
       this.avatarModal = true;
       this.getAllAvatars();
+    },
+    showDelete() {
+      this.deleteModal = true;
     },
     changeAvatar(id) {
       this.avatar.id = id;
@@ -274,6 +296,19 @@ export default {
         .dispatch('update', user)
         .then(() => {
           this.$router.go();
+        })
+        .catch((err) => {
+          console.log(err);
+          this.axiosError = true;
+        });
+    },
+    async deleteAccount() {
+      const id = this.id;
+
+      await store
+        .dispatch('delete', id)
+        .then(() => {
+          this.$router.push({name: "login"});
         })
         .catch((err) => {
           console.log(err);
@@ -404,7 +439,7 @@ header {
   }
 }
 
-.avatar-modal {
+.modal {
   @apply h-screen w-screen fixed top-0 left-0 bg-black bg-opacity-30 z-50 flex justify-center items-center;
 
   .card {
@@ -468,6 +503,42 @@ header {
 
     &:hover {
       @apply bg-zinc-200 text-black;
+    }
+  }
+}
+
+.delete-modal {
+  @apply text-center;
+
+  .card {
+    @apply max-w-[500px];
+  }
+
+  h3 {
+    @apply text-zinc-900 text-2xl font-medium mb-2;
+  }
+
+  .button-container {
+    @apply flex justify-center items-center gap-3 w-full mt-5;
+
+    button {
+      @apply py-3 px-5 w-full rounded  border-2;
+    }
+
+    button:first-child {
+      @apply bg-red-500 border-red-500 text-white;
+
+      &:hover {
+        @apply bg-red-600 border-red-600;
+      }
+    }
+
+    button:last-child {
+      @apply bg-white text-zinc-500 border-zinc-500 transition;
+
+      &:hover {
+        @apply border-zinc-600 text-zinc-600 rounded-none;
+      }
     }
   }
 }
